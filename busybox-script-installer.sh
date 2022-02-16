@@ -5,7 +5,9 @@ set -euxv
 # Script to busybox shell scripts only for commands are missing on the system 
 
 PRG=busybox-script-installer
-DEBUG=0
+
+# ${parameter:-word} # If parameter is unset or null, the expansion of word is substituted. Otherwise, the value of parameter is substituted. https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html#tag_02_06_02
+DEBUG=${DEBUG:-0}
 
 debug()
 {
