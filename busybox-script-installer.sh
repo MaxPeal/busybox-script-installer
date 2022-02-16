@@ -59,7 +59,8 @@ BUSYBOX_TMP=$(mktemp -d -t $PRG-tmp.XXXXXX)
 mkdir -p $BUSYBOX_TMP/bin
 
 ${BUSYBOX_BINARY} --install -s $BUSYBOX_TMP/bin/
-rsync -l --ignore-existing $BUSYBOX_TMP/bin/* $ROOT_DIR/bin/
+#rsync -l --ignore-existing $BUSYBOX_TMP/bin/* $ROOT_DIR/bin/
+mv -n $BUSYBOX_TMP/bin/* $ROOT_DIR/bin/
 if [ "$DEBUG" -le "0" ] ; then rm -rf $BUSYBOX_TMP ; fi
 for l in $ROOT_DIR/bin/*; do
   if test -h $l; then
