@@ -1,5 +1,6 @@
 #!/bin/bash
-set -eux
+#set -eux
+set -euxv
 
 # Script to busybox shell scripts only for commands are missing on the system 
 
@@ -35,6 +36,12 @@ done
 
 create_busybox_scripts()
 {
+local BUSYBOX_FILE_NAME=$1
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:$PATH command -v $BUSYBOX_FILE_NAME && create_busybox_scripts_doit $BUSYBOX_FILE_NAME  ||:
+}
+
+create_busybox_scripts_doit()
+{
 
 local BUSYBOX_FILE_NAME=$1
 
@@ -43,7 +50,7 @@ local BUSYBOX_FILE_NAME=$1
 # make shure to have a working search PATH env
 PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 ROOT_DIR=/usr/local/bin
-BUSYBOX_BINARY=`PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:$PATH command -v $BUSYBOX_FILE_NAME`
+BUSYBOX_BINARY=`PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:$PATH command -v $BUSYBOX_FILE_NAME || return 0`
 echo "BUSYBOX_BINARY $BUSYBOX_BINARY"
 #BUSYBOX_TMP=$(mktemp -d -p $ROOT_DIR)
 BUSYBOX_TMP=$(mktemp -d -t $PRG-tmp.XXXXXX)
