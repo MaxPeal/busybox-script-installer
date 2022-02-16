@@ -26,7 +26,7 @@ mkdir -p $BUSYBOX_TMP/bin
 
 ${BUSYBOX_BINARY} --install -s $BUSYBOX_TMP/bin/
 rsync -l --ignore-existing $BUSYBOX_TMP/bin/* $ROOT_DIR/bin/
-rm -rf $BUSYBOX_TMP
+debug rm -rf $BUSYBOX_TMP
 for l in $ROOT_DIR/bin/*; do
   if test -h $l; then
     ln -sf /sbin/busybox-static $l
